@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fairway Exchange Tour 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:sans-serif;background:#e8ede0;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:16px}
+
+.app{max-width:420px;width:100%;border-radius:16px;overflow:hidden;transition:background 0.25s,border-color 0.25s}
+
+/* ── THEME B: Chalk & Turf (light) ── */
+.t-b{background:#f5f7f0;border:1.5px solid #c8d8b0}
+.t-b .hdr{background:#1e4a1e;border-bottom:3px solid #e8a020}
+.t-b .hdr-title{color:#fff;font-family:'Georgia',serif;font-size:16px;letter-spacing:0.03em}
+.t-b .hdr-sub{color:rgba(255,255,255,0.5);font-size:10px;margin-top:2px}
+.t-b .nav{background:#f5f7f0;border-bottom:1px solid #c8d8b0}
+.t-b .nav-btn{color:#6a8a5a;background:none;border:none;border-bottom:3px solid transparent}
+.t-b .nav-btn.on{color:#1e4a1e;font-weight:bold;border-bottom-color:#1e4a1e}
+.t-b .view{background:#f5f7f0}
+.t-b .fmt-tab{background:#fff;border:1px solid #c8d8b0;color:#3a5a1a;border-radius:6px}
+.t-b .fmt-tab.on{background:#1e4a1e;color:#fff;border-color:#1e4a1e}
+.t-b .r-tab{background:#fff;border:1px solid #c8d8b0;color:#3a5a1a}
+.t-b .r-tab.on{background:#1e4a1e;color:#fff;border-color:#1e4a1e}
+.t-b .lb-row{background:#fff;border:1px solid #d8e8c0}
+.t-b .lb-row.pos-1{border-left:3px solid #e8a020;background:#fffdf4}
+.t-b .lb-rank{color:#1e4a1e}
+.t-b .lb-rank.gold{color:#c8820a}
+.t-b .lb-name{color:#1a2a10}
+.t-b .lb-hcp{color:#8aaa6a}
+.t-b .lb-score.under{color:#1a6a1a}
+.t-b .lb-score.over{color:#8a1a1a}
+.t-b .lb-score.even{color:#1e4a1e}
+.t-b .lb-pts{color:#c8820a}
+.t-b .sec-label{color:#5a7a3a}
+.t-b .day-label{color:#1e4a1e}
+.t-b .tee-card{background:#fff;border:1px solid #d8e8c0}
+.t-b .tee-time-bar{background:#1e4a1e;color:#fff}
+.t-b .tee-players{color:#2a3a1a}
+.t-b .tee-hole{color:#7a9a5a}
+.t-b .info-section{background:#fff;border:1px solid #d8e8c0}
+.t-b .info-hdr{background:#2a5a2a;color:#fff}
+.t-b .info-body{color:#2a3a1a}
+.t-b .info-body strong{color:#1e4a1e}
+.t-b .score-form{background:#fff;border:1px solid #d8e8c0}
+.t-b .score-form h3{color:#1e4a1e}
+.t-b .form-label{color:#5a7a3a}
+.t-b .form-inp{border:1px solid #c8d8b0;background:#fff;color:#1a2a10}
+.t-b .btn-save{background:#1e4a1e;color:#fff}
+.t-b .btn-save:hover{background:#2a5a2a}
+.t-b .stat-card{background:#fff;border:1px solid #d8e8c0}
+.t-b .stat-lbl{color:#7a9a5a}
+.t-b .stat-val{color:#1e4a1e}
+.t-b .no-data{color:#7a9a5a}
+.t-b .theme-toggle{background:#fff;border:1px solid #c8d8b0;color:#1e4a1e}
+.t-b .toast{color:#1e4a1e}
+.t-b .del-btn{color:#8a1a1a;border-color:#f0c0c0;background:#fff8f8}
+
+/* ── THEME C: Slate & Lime (dark) ── */
+.t-c{background:#1c2420;border:1.5px solid #2e3e34}
+.t-c .hdr{background:#1c2420;border-bottom:2px solid #2e3e34}
+.t-c .hdr-accent{display:block !important}
+.t-c .hdr-title{color:#f0f8f0;font-size:15px;font-weight:500;letter-spacing:0.02em}
+.t-c .hdr-sub{color:rgba(255,255,255,0.3);font-size:10px;margin-top:2px;letter-spacing:0.06em}
+.t-c .nav{background:#161e1a;border-bottom:1px solid #2e3e34}
+.t-c .nav-btn{color:rgba(255,255,255,0.35);background:none;border:none;border-bottom:3px solid transparent}
+.t-c .nav-btn.on{color:#7ec850;border-bottom-color:#7ec850}
+.t-c .view{background:#1c2420}
+.t-c .fmt-tab{background:#222e28;border:1px solid #2e3e34;color:rgba(255,255,255,0.45);border-radius:6px}
+.t-c .fmt-tab.on{background:#7ec850;color:#0a1a0c;border-color:#7ec850}
+.t-c .r-tab{background:#222e28;border:1px solid #2e3e34;color:rgba(255,255,255,0.4)}
+.t-c .r-tab.on{background:#7ec850;color:#0a1a0c;border-color:#7ec850}
+.t-c .lb-row{background:#222e28;border:1px solid #2e3e34}
+.t-c .lb-row.pos-1{background:#253420;border-color:#7ec850}
+.t-c .lb-rank{color:#7ec850}
+.t-c .lb-rank.gold{color:#7ec850}
+.t-c .lb-name{color:#d0e8d0}
+.t-c .lb-hcp{color:rgba(255,255,255,0.3)}
+.t-c .lb-score.under{color:#7ec850}
+.t-c .lb-score.over{color:#e07070}
+.t-c .lb-score.even{color:#a0c890}
+.t-c .lb-pts{color:rgba(255,255,255,0.3)}
+.t-c .sec-label{color:#4a7a4a}
+.t-c .day-label{color:#7ec850}
+.t-c .tee-card{background:#222e28;border:1px solid #2e3e34}
+.t-c .tee-time-bar{background:#253420;color:#7ec850}
+.t-c .tee-players{color:#c0d8c0}
+.t-c .tee-hole{color:rgba(255,255,255,0.3)}
+.t-c .info-section{background:#222e28;border:1px solid #2e3e34}
+.t-c .info-hdr{background:#1a2e1a;color:#7ec850}
+.t-c .info-body{color:#b0c8b0}
+.t-c .info-body strong{color:#7ec850}
+.t-c .score-form{background:#222e28;border:1px solid #2e3e34}
+.t-c .score-form h3{color:#7ec850}
+.t-c .form-label{color:#4a7a4a}
+.t-c .form-inp{border:1px solid #2e3e34;background:#1c2420;color:#d0e8d0}
+.t-c .btn-save{background:#7ec850;color:#0a1a0c}
+.t-c .btn-save:hover{background:#96d868}
+.t-c .stat-card{background:#222e28;border:1px solid #2e3e34}
+.t-c .stat-lbl{color:#4a7a4a}
+.t-c .stat-val{color:#7ec850}
+.t-c .no-data{color:#3a5a3a}
+.t-c .theme-toggle{background:#222e28;border:1px solid #3e5e44;color:#7ec850}
+.t-c .toast{color:#7ec850}
+.t-c .del-btn{color:#e07070;border-color:#4a2a2a;background:#2a1e1e}
+
+/* ── shared structural ── */
+.hdr{padding:16px 16px 12px;text-align:center}
+.hdr-accent{width:32px;height:3px;background:#7ec850;border-radius:2px;margin:0 auto 8px;display:none}
+.nav{display:flex}
+.nav-btn{flex:1;padding:10px 4px;font-size:11px;cursor:pointer;font-family:sans-serif;letter-spacing:0.03em}
+.view{display:none;padding:14px}
+.view.on{display:block}
+.fmt-tabs{display:flex;gap:6px;margin-bottom:12px}
+.fmt-tab{flex:1;padding:7px 4px;font-size:11px;cursor:pointer;text-align:center;font-family:sans-serif;transition:all 0.12s}
+.round-tabs{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.r-tab{padding:5px 10px;font-size:11px;border-radius:20px;cursor:pointer;font-family:sans-serif}
+.lb-row{display:flex;align-items:center;padding:9px 10px;border-radius:8px;margin-bottom:6px;gap:10px;transition:background 0.15s}
+.lb-rank{font-size:14px;font-weight:bold;min-width:22px;text-align:center;font-family:sans-serif}
+.lb-name{font-size:13px;font-family:sans-serif}
+.lb-hcp{font-size:11px;font-family:sans-serif}
+.lb-score{font-size:15px;font-weight:bold;min-width:32px;text-align:right;font-family:sans-serif}
+.lb-pts{font-size:11px;text-align:right;min-width:28px;font-family:sans-serif}
+.sec-label{font-size:10px;letter-spacing:0.1em;font-family:sans-serif;margin-bottom:8px;padding-left:2px}
+.day-label{font-size:12px;font-family:sans-serif;margin:10px 0 6px;font-weight:bold;padding-left:2px}
+.tee-card{border-radius:8px;margin-bottom:6px;overflow:hidden}
+.tee-time-bar{font-size:11px;padding:5px 10px;font-family:sans-serif;letter-spacing:0.05em}
+.tee-players{padding:8px 10px;font-size:12px;font-family:sans-serif;line-height:1.6}
+.tee-hole{font-size:10px;margin-top:2px;font-family:sans-serif}
+.info-section{border-radius:8px;margin-bottom:10px;overflow:hidden}
+.info-hdr{font-size:12px;padding:8px 12px;font-family:sans-serif;letter-spacing:0.04em}
+.info-body{padding:10px 12px;font-size:12px;font-family:sans-serif;line-height:1.7}
+.score-form{border-radius:8px;padding:12px;margin-bottom:8px}
+.score-form h3{font-size:13px;margin-bottom:10px;font-family:sans-serif}
+.form-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.form-label{font-size:11px;font-family:sans-serif;min-width:60px}
+.form-inp{flex:1;padding:6px 8px;border-radius:6px;font-size:12px;font-family:sans-serif}
+.form-inp-sm{width:60px;flex:none;padding:6px 8px;border-radius:6px;font-size:12px;text-align:center;font-family:sans-serif}
+.hole-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:10px}
+.hole-inp{display:flex;align-items:center;gap:6px}
+.hole-inp label{font-size:11px;min-width:46px;font-family:sans-serif}
+.hole-inp input{width:48px;padding:5px 6px;border-radius:5px;font-size:12px;text-align:center;font-family:sans-serif;border:1px solid #c8d8b0}
+.btn-save{width:100%;padding:10px;border:none;border-radius:8px;font-size:13px;cursor:pointer;font-family:sans-serif;letter-spacing:0.04em;transition:background 0.15s}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.stat-card{border-radius:8px;padding:10px 12px}
+.stat-lbl{font-size:10px;font-family:sans-serif;letter-spacing:0.05em;margin-bottom:3px}
+.stat-val{font-size:20px;font-weight:bold;font-family:sans-serif}
+.no-data{text-align:center;padding:24px;font-size:12px;font-family:sans-serif}
+.theme-toggle{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;cursor:pointer;font-size:11px;font-family:sans-serif;margin:0 auto 14px;transition:all 0.15s;border:none}
+.toggle-dot{width:28px;height:16px;border-radius:8px;background:#7ec850;position:relative;transition:background 0.2s}
+.t-b .toggle-dot{background:#1e4a1e}
+.toggle-knob{width:12px;height:12px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:transform 0.2s}
+.t-c .toggle-knob{transform:translateX(12px)}
+.toast{display:block;text-align:center;padding:8px;font-size:11px;font-family:sans-serif;opacity:0;pointer-events:none;transition:opacity 0.3s;min-height:28px}
+.toast.show{opacity:1}
+.del-btn{font-size:10px;padding:3px 8px;border-radius:4px;cursor:pointer;font-family:sans-serif;border:1px solid}
+</style>
+</head>
+<body>
+<div class="app t-b" id="app">
+
+<div class="hdr">
+  <div class="hdr-accent" id="hdr-accent"></div>
+  <div class="hdr-title">Fairway Exchange Tour 2026</div>
+  <div class="hdr-sub">Week 30 · July 2026</div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn on" onclick="nav('lb',this)">Leaderboard</button>
+  <button class="nav-btn" onclick="nav('sched',this)">Schedule</button>
+  <button class="nav-btn" onclick="nav('scores',this)">Scores</button>
+  <button class="nav-btn" onclick="nav('info',this)">Info</button>
+</div>
+
+<!-- LEADERBOARD -->
+<div id="v-lb" class="view on">
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
+    <div class="toggle-dot"><div class="toggle-knob"></div></div>
+    <span id="theme-label">Chalk &amp; Turf</span>
+  </button>
+  <div class="fmt-tabs">
+    <div class="fmt-tab on" onclick="setFmt('stableford',this)">Stableford</div>
+    <div class="fmt-tab" onclick="setFmt('stroke',this)">Stroke</div>
+    <div class="fmt-tab" onclick="setFmt('netto',this)">Netto</div>
+  </div>
+  <div class="round-tabs" id="lb-round-tabs"></div>
+  <div id="lb-list"></div>
+</div>
+
+<!-- SCHEDULE -->
+<div id="v-sched" class="view">
+  <div class="round-tabs" id="sched-round-tabs"></div>
+  <div id="sched-content"></div>
+</div>
+
+<!-- SCORES -->
+<div id="v-scores" class="view">
+  <div class="score-form">
+    <h3>Enter scores</h3>
+    <div class="form-row">
+      <span class="form-label">Player</span>
+      <select id="inp-player" class="form-inp"></select>
+    </div>
+    <div class="form-row">
+      <span class="form-label">Round</span>
+      <select id="inp-round" class="form-inp"></select>
+    </div>
+    <div class="sec-label" style="margin-top:6px;margin-bottom:8px">Hole scores (gross)</div>
+    <div class="hole-grid" id="hole-inputs"></div>
+    <button class="btn-save" onclick="saveScore()">Save scorecard</button>
+  </div>
+  <div id="saved-cards"></div>
+</div>
+
+<!-- INFO -->
+<div id="v-info" class="view">
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-lbl">Players</div><div class="stat-val" id="st-players">0</div></div>
+    <div class="stat-card"><div class="stat-lbl">Rounds</div><div class="stat-val">5</div></div>
+    <div class="stat-card"><div class="stat-lbl">Format</div><div class="stat-val" style="font-size:13px;padding-top:4px">All 3</div></div>
+    <div class="stat-card"><div class="stat-lbl">Week</div><div class="stat-val" style="font-size:13px;padding-top:4px">W30 '26</div></div>
+  </div>
+  <div class="info-section">
+    <div class="info-hdr">Tournament</div>
+    <div class="info-body"><strong>Fairway Exchange Tour 2026</strong><br>Week 30 · 5 rounds · Max 8 players</div>
+  </div>
+  <div class="info-section">
+    <div class="info-hdr">Scoring formats</div>
+    <div class="info-body">
+      <strong>Stableford</strong> — Points per hole. Bogey=1, Par=2, Birdie=3, Eagle=4.<br><br>
+      <strong>Stroke (gross)</strong> — Total shots, lowest wins.<br><br>
+      <strong>Netto</strong> — Gross minus full handicap.
+    </div>
+  </div>
+  <div class="info-section">
+    <div class="info-hdr">Players</div>
+    <div class="info-body" id="info-players">No players added yet.</div>
+  </div>
+  <div class="info-section">
+    <div class="info-hdr">Add player</div>
+    <div class="info-body">
+      <div class="form-row" style="margin-bottom:8px">
+        <input id="np-name" placeholder="Player name" class="form-inp" style="flex:1">
+        <input id="np-hcp" placeholder="HCP" type="number" min="0" max="54" class="form-inp form-inp-sm">
+      </div>
+      <button class="btn-save" onclick="addPlayer()">Add player</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+</div><!-- /app -->
+
+<script>
+const PAR_18 = 72;
+const HOLE_PARS = [4,4,3,5,4,3,4,4,5,4,4,3,5,4,3,4,4,5];
+const ROUNDS = [
+  {id:'r1',label:'R1',date:'Mon 20 Jul',day:'Monday 20 July'},
+  {id:'r2',label:'R2',date:'Tue 21 Jul',day:'Tuesday 21 July'},
+  {id:'r3',label:'R3',date:'Wed 22 Jul',day:'Wednesday 22 July'},
+  {id:'r4',label:'R4',date:'Thu 23 Jul',day:'Thursday 23 July'},
+  {id:'r5',label:'R5',date:'Fri 24 Jul',day:'Friday 24 July'},
+];
+
+const STORAGE_KEY = 'fet2026v2';
+let state = {players:[], scores:{}, format:'stableford', lbRound:'total', schedRound:'r1', theme:'b'};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const saved = JSON.parse(raw);
+      state = {...state, ...saved};
+    }
+  } catch(e) {}
+  applyTheme();
+  render();
+}
+
+function persistState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      players: state.players,
+      scores: state.scores,
+      theme: state.theme
+    }));
+  } catch(e) {}
+}
+
+function applyTheme() {
+  const app = document.getElementById('app');
+  app.classList.remove('t-b','t-c');
+  app.classList.add('t-' + state.theme);
+  document.getElementById('theme-label').textContent =
+    state.theme === 'b' ? 'Chalk & Turf' : 'Slate & Lime';
+}
+
+function toggleTheme() {
+  state.theme = state.theme === 'b' ? 'c' : 'b';
+  applyTheme();
+  persistState();
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function nav(id, el) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  document.getElementById('v-' + id).classList.add('on');
+  el.classList.add('on');
+}
+
+function setFmt(f, el) {
+  state.format = f;
+  document.querySelectorAll('.fmt-tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  renderLB();
+}
+
+function stablefordPts(gross, par) {
+  const d = gross - par;
+  if (d >= 2) return 0;
+  if (d === 1) return 1;
+  if (d === 0) return 2;
+  if (d === -1) return 3;
+  if (d === -2) return 4;
+  return 5;
+}
+
+function calcTotals(pid, rid) {
+  const sc = state.scores[pid] && state.scores[pid][rid];
+  if (!sc || !sc.holes || sc.holes.length < 18) return null;
+  const gross = sc.holes.reduce((a,b) => a+b, 0);
+  const p = state.players.find(x => x.id === pid);
+  const hcp = p ? p.hcp : 0;
+  const pts = sc.holes.reduce((a,h,i) => a + stablefordPts(h, HOLE_PARS[i]), 0);
+  return { gross, netto: gross - hcp, pts, toPar: gross - PAR_18 };
+}
+
+function calcAll(pid) {
+  let gross=0, netto=0, pts=0, played=0;
+  ROUNDS.forEach(r => {
+    const t = calcTotals(pid, r.id);
+    if (t) { gross+=t.gross; netto+=t.netto; pts+=t.pts; played++; }
+  });
+  return played ? { gross, netto, pts, toPar: gross - PAR_18*played, played } : null;
+}
+
+function renderLB() {
+  const tabs = document.getElementById('lb-round-tabs');
+  tabs.innerHTML = '';
+  ['total', ...ROUNDS.map(r => r.id)].forEach(rid => {
+    const lbl = rid === 'total' ? 'Total' : ROUNDS.find(r => r.id === rid).label;
+    const b = document.createElement('div');
+    b.className = 'r-tab' + (state.lbRound === rid ? ' on' : '');
+    b.textContent = lbl;
+    b.onclick = () => { state.lbRound = rid; renderLB(); };
+    tabs.appendChild(b);
+  });
+
+  const list = document.getElementById('lb-list');
+  if (!state.players.length) {
+    list.innerHTML = '<div class="no-data">Add players in the Info tab.</div>';
+    return;
+  }
+
+  const rows = state.players.map(p => {
+    const t = state.lbRound === 'total' ? calcAll(p.id) : calcTotals(p.id, state.lbRound);
+    return { p, t };
+  }).filter(x => x.t);
+
+  if (!rows.length) {
+    list.innerHTML = '<div class="no-data">No scores entered yet.</div>';
+    return;
+  }
+
+  const fmt = state.format;
+  rows.sort((a,b) => fmt === 'stableford' ? b.t.pts - a.t.pts :
+    fmt === 'stroke' ? a.t.gross - b.t.gross : a.t.netto - b.t.netto);
+
+  list.innerHTML = rows.map(({p,t}, i) => {
+    let sc, pt;
+    if (fmt === 'stableford') {
+      sc = `<span class="lb-score even">${t.pts}</span>`;
+      pt = `<span class="lb-pts">pts</span>`;
+    } else {
+      const val = fmt === 'netto' ? t.netto : t.gross;
+      const diff = fmt === 'netto' ? t.netto - PAR_18*(t.played||1) : t.toPar;
+      const cls = diff < 0 ? 'under' : diff > 0 ? 'over' : 'even';
+      const ds = diff === 0 ? 'E' : (diff > 0 ? '+' : '') + diff;
+      sc = `<span class="lb-score ${cls}">${ds}</span>`;
+      pt = `<span class="lb-pts">${val}</span>`;
+    }
+    return `<div class="lb-row${i===0?' pos-1':''}">
+      <div class="lb-rank${i===0?' gold':''}">${i+1}</div>
+      <div style="flex:1"><div class="lb-name">${p.name}</div><div class="lb-hcp">HCP ${p.hcp}</div></div>
+      ${sc}${pt}
+    </div>`;
+  }).join('');
+}
+
+function renderSched() {
+  const tabs = document.getElementById('sched-round-tabs');
+  tabs.innerHTML = '';
+  ROUNDS.forEach(r => {
+    const b = document.createElement('div');
+    b.className = 'r-tab' + (state.schedRound === r.id ? ' on' : '');
+    b.textContent = r.label;
+    b.onclick = () => { state.schedRound = r.id; renderSched(); };
+    tabs.appendChild(b);
+  });
+
+  const round = ROUNDS.find(r => r.id === state.schedRound);
+  const el = document.getElementById('sched-content');
+
+  if (!state.players.length) {
+    el.innerHTML = '<div class="no-data">Add players to generate tee times.</div>';
+    return;
+  }
+
+  const groups = [];
+  for (let i = 0; i < state.players.length; i += 2) groups.push(state.players.slice(i, i+2));
+
+  el.innerHTML = `<div class="day-label">${round.day}</div>` +
+    groups.map((g, i) => {
+      const mins = 8*60 + i*12;
+      const h = Math.floor(mins/60), m = mins % 60;
+      const time = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+      return `<div class="tee-card">
+        <div class="tee-time-bar">${time}</div>
+        <div class="tee-players">${g.map(p => p.name).join(' · ')}
+          <div class="tee-hole">Hole 1 · ${g.map(p => 'HCP ' + p.hcp).join(' / ')}</div>
+        </div>
+      </div>`;
+    }).join('');
+}
+
+function renderScoreForm() {
+  const pSel = document.getElementById('inp-player');
+  pSel.innerHTML = state.players.length
+    ? state.players.map(p => `<option value="${p.id}">${p.name}</option>`).join('')
+    : '<option value="">Add players first</option>';
+
+  document.getElementById('inp-round').innerHTML =
+    ROUNDS.map(r => `<option value="${r.id}">${r.label} — ${r.date}</option>`).join('');
+
+  document.getElementById('hole-inputs').innerHTML =
+    HOLE_PARS.map((par, i) => `
+      <div class="hole-inp">
+        <label class="form-label">H${i+1} (${par})</label>
+        <input type="number" min="1" max="12" id="h${i}" placeholder="${par}"
+          style="width:48px;padding:5px 6px;border-radius:5px;font-size:12px;text-align:center;font-family:sans-serif;border:1px solid #c8d8b0">
+      </div>`).join('');
+
+  const cards = document.getElementById('saved-cards');
+  const entries = [];
+  state.players.forEach(p => ROUNDS.forEach(r => {
+    const t = calcTotals(p.id, r.id);
+    if (t) entries.push({p, r, t});
+  }));
+
+  cards.innerHTML = entries.length
+    ? `<div class="sec-label" style="margin-top:8px">Saved scorecards</div>` +
+      entries.map(({p,r,t}) => `
+        <div class="lb-row" style="margin-bottom:6px">
+          <div style="flex:1">
+            <div class="lb-name">${p.name}</div>
+            <div class="lb-hcp">${r.label} · ${r.date}</div>
+          </div>
+          <div style="text-align:right;margin-right:8px">
+            <div class="lb-score ${t.toPar<0?'under':t.toPar>0?'over':'even'}" style="font-size:12px">
+              ${t.toPar===0?'E':(t.toPar>0?'+':'')+t.toPar}
+            </div>
+            <div class="lb-pts">${t.pts} pts</div>
+          </div>
+          <button class="del-btn" onclick="deleteScore('${p.id}','${r.id}')">Remove</button>
+        </div>`).join('')
+    : '';
+}
+
+function renderInfo() {
+  document.getElementById('st-players').textContent = state.players.length;
+  document.getElementById('info-players').innerHTML = state.players.length
+    ? state.players.map(p => `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <span><strong>${p.name}</strong> — HCP ${p.hcp}</span>
+          <button class="del-btn" onclick="deletePlayer('${p.id}')">Remove</button>
+        </div>`).join('')
+    : 'No players added yet.';
+}
+
+function render() { renderLB(); renderSched(); renderScoreForm(); renderInfo(); }
+
+function addPlayer() {
+  const name = document.getElementById('np-name').value.trim();
+  const hcp = parseInt(document.getElementById('np-hcp').value) || 0;
+  if (!name) { toast('Enter a player name'); return; }
+  if (state.players.length >= 8) { toast('Max 8 players reached'); return; }
+  if (state.players.find(p => p.name.toLowerCase() === name.toLowerCase())) {
+    toast('Player already exists'); return;
+  }
+  state.players.push({id: 'p' + Date.now(), name, hcp});
+  document.getElementById('np-name').value = '';
+  document.getElementById('np-hcp').value = '';
+  persistState(); render(); toast(name + ' added!');
+}
+
+function deletePlayer(pid) {
+  state.players = state.players.filter(p => p.id !== pid);
+  delete state.scores[pid];
+  persistState(); render(); toast('Player removed');
+}
+
+function saveScore() {
+  const pid = document.getElementById('inp-player').value;
+  const rid = document.getElementById('inp-round').value;
+  if (!pid) { toast('Add a player first'); return; }
+  const holes = HOLE_PARS.map((par, i) => {
+    const v = parseInt(document.getElementById('h' + i).value);
+    return isNaN(v) ? par : v;
+  });
+  if (!state.scores[pid]) state.scores[pid] = {};
+  state.scores[pid][rid] = {holes};
+  persistState(); render(); toast('Scorecard saved!');
+}
+
+function deleteScore(pid, rid) {
+  if (state.scores[pid]) delete state.scores[pid][rid];
+  persistState(); render(); toast('Scorecard removed');
+}
+
+loadState();
+</script>
+</body>
+</html>
